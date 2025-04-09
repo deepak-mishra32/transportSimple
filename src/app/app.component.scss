@@ -1,0 +1,8 @@
+.tripDetails {
+  margin: 4px;
+}
+input[type="text"] {
+  &:focus {
+    box-shadow: none;
+  }
+}
