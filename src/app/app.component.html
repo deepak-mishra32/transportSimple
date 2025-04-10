@@ -57,10 +57,23 @@
               <img src="assets/icons/arrow.svg" [alt]="trip.type" />
               } @else if(i+1 < trips.length && trip.type=='non-continued'){
               <img src="assets/icons/arrow.svg" [alt]="trip.type" />
-              }@else if (i+1 < trips.length && trip.type=='repeat') {
-              <img src="assets/icons/upward-cruve.svg" [alt]="trip.type" />
+              }@else if (i+1 <= trips.length && trip.type=='repeat') {
+              @if(trips[i-1]['type']=='repeat'){
+              <img src="assets/icons/line.svg" [alt]="trip.type" />
+              }@else {
+              <img
+                src="assets/icons/upward-curve.svg"
+                height="100px"
+                [alt]="trip.type"
+              />
+              } }@else if(trips[i-1]['type']=='repeat' &&
+              (trip.type=='continued' || trip.type=='non-continued')){
+              <img
+                src="assets/icons/downward-curve.svg"
+                height="100px"
+                [alt]="trip.type"
+              />
               }
-       
             </div>
             <div>
               <span class="tripStart">{{ trip.start | initials }}</span> -
