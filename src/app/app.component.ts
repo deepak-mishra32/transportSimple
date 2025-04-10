@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
+import { InitialsPipe } from './components/pipes/initials.pipe';
 
 export interface Trip {
   start: string;
@@ -19,6 +20,7 @@ export interface Trip {
     NavbarComponent,
     CommonModule,
     FormsModule,
+    InitialsPipe,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
@@ -30,13 +32,42 @@ export class AppComponent {
   endTrip: string | undefined = '';
 
   trips: Trip[] = [
-    // { start: 'Bangalore', end: 'Chennai', level: 1, type: 'continued' },
-    // { start: 'Chennai', end: 'Ooty', level: 1, type: 'continued' },
-    // { start: 'Bangalore', end: 'Chennai', level: 2, type: 'non-continued' },
-    // { start: 'Ooty', end: 'Bangalore', level: 2, type: 'non-continued' },
-    // { start: 'Bangalore', end: 'Delhi', level: 1, type: 'continued' },
-    // { start: 'Delhi', end: 'Hyderabad', level: 1, type: 'continued' },
-    // { start: 'Delhi', end: 'Hyderabad', level: 1, type: 'repeat' },
+    {
+      start: 'Mumbai',
+      end: 'Bangalore',
+      level: 1,
+      type: 'continued',
+    },
+    {
+      start: 'Bangalore',
+      end: 'Raigad',
+      level: 1,
+      type: 'continued',
+    },
+    {
+      start: 'Bangalore',
+      end: 'Pune',
+      level: 1,
+      type: 'non-continued',
+    },
+    {
+      start: 'Goa',
+      end: 'Mumbai',
+      level: 1,
+      type: 'non-continued',
+    },
+    {
+      start: 'mumbai',
+      end: 'chennai',
+      level: 1,
+      type: 'continued',
+    },
+    {
+      start: 'mumbai',
+      end: 'chennai',
+      level: 2,
+      type: 'repeat',
+    },
   ];
 
   resetTrip() {
@@ -58,7 +89,7 @@ export class AppComponent {
       previousTrip.end?.toLowerCase().trim() ===
         this.endTrip?.toLowerCase().trim()
     ) {
-      newTrip.level = previousTrip.level;
+      newTrip.level = 2;
       newTrip.type = 'repeat';
     } else if (
       previousTrip.end?.toLowerCase().trim() ===
@@ -70,13 +101,17 @@ export class AppComponent {
       previousTrip.end?.toLowerCase().trim() !==
       this.startTrip?.toLowerCase().trim()
     ) {
-      newTrip.level = 2;
+      newTrip.level = 1;
       newTrip.type = 'non-continued';
     }
     this.trips.push(newTrip);
   }
 
   addTrip() {
+    if (!this.startTrip || !this.endTrip) {
+      alert('Please fill in both start and end locations.');
+      return;
+    }
     if (this.trips.length === 0) {
       this.trips.push({
         start: this.startTrip || '',
@@ -87,7 +122,8 @@ export class AppComponent {
     } else {
       this.checkTripLevel();
     }
-    this.resetTrip();
     console.log(this.trips);
+
+    this.resetTrip();
   }
 }

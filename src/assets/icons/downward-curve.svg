@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="600" height="500" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+  <title>Downward Curve</title>
+  <path d="M50,50 C150,100 350,400 550,450" stroke="#231f20" stroke-width="3" fill="none" />
+</svg>

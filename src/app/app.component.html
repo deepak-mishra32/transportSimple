@@ -31,4 +31,47 @@
       </button>
     </div>
   </div>
+  <div class="youtTrips mt-2">
+    <h4>Your Trips</h4>
+    <div class="d-flex flex-wrap">
+      @for( trip of trips;track trip;let i = $index){
+      <div
+        class="d-flex flex-nowrap mb-5 mt-5"
+        [ngClass]="
+          trips[i]['type'] == 'repeat' ? 'align-items-start' : 'align-items-end'
+        "
+      >
+        <div class="d-flex flex-column align-items-start">
+          <div class="d-flex flex-column">
+            <div class="d-flex align-items-end ms-4">
+              @if(trip.type=='continued'){
+              <img src="assets/icons/dot-filled.svg" [alt]="trip.type" />
+              } @else if( trip.type=='non-continued'||trip.type=='repeat'){
+              <img src="assets/icons/dot.svg" [alt]="trip.type" />
+              } @if(i+1 < trips.length && trips[i+1]['type']=='continued'){
+              <img src="assets/icons/line.svg" [alt]="trip.type" />
+              } @else if(i+1 < trips.length &&
+              trips[i+1]['type']=='non-continued'){
+              <img src="assets/icons/arrow.svg" [alt]="trip.type" />
+              } @else if(i+1 < trips.length && trip.type=='continued'){
+              <img src="assets/icons/arrow.svg" [alt]="trip.type" />
+              } @else if(i+1 < trips.length && trip.type=='non-continued'){
+              <img src="assets/icons/arrow.svg" [alt]="trip.type" />
+              }@else if (i+1 < trips.length && trip.type=='repeat') {
+              <img src="assets/icons/upward-cruve.svg" [alt]="trip.type" />
+              }
+       
+            </div>
+            <div>
+              <span class="tripStart">{{ trip.start | initials }}</span> -
+              <span class="tripEnd">{{ trip.end | initials }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      } @empty {
+      <div class="noTrips">No trips added yet. Please add a trip.</div>
+      }
+    </div>
+  </div>
 </section>
